@@ -2,20 +2,31 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building the project...'
+                // Checkout your code from version control
+                git 'https://your-repository-url.git'
             }
         }
-        stage('Test') {
+
+        stage('Compile') {
             steps {
-                echo 'Running tests...'
+                echo 'Compiling Java program...'
+                sh 'javac HelloWorld.java'
             }
         }
-        stage('Deploy') {
+
+        stage('Run') {
             steps {
-                echo 'Deploying application...'
+                echo 'Running Java program...'
+                sh 'java HelloWorld'
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed.'
         }
     }
 }
